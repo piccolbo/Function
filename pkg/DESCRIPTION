@@ -1,0 +1,13 @@
+Package: Function
+Type: Package
+Title: A function type with included help and tests and reusable arguments
+Version: 0.0.0
+Date: 2015-10-13
+Author: Antonio Piccolboni <antonio@piccolboni.info>
+Maintainer: Antonio Piccolboni <antonio@piccolboni.info>
+Description: A Function class that formalizes good sw engineering practices,
+  associating functions, pre- and post-conditions, tests, documentation and
+  arguments, all the while promoting reuse and consistency in function families
+License: GPL (== 2.0)
+Imports: purrr
+LazyData: TRUE
