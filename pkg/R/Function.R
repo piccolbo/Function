@@ -58,7 +58,7 @@ F = Function =
     nargs = names(named_dots(...))
     if(is.null(body)){
       body = tail(fargs, 1)[[1]]
-      fargs = fargs[-length(fargs)]}
+      fargs = head(fargs, -1)
       nargs = head(nargs, -1)}
     fargs = c(fargs, args)
     pre =
