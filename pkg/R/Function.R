@@ -88,8 +88,7 @@ F = Function =
         object = vals ,
         nm = names(fargs))
     if(is.null(help$args))
-      help$args =
-      paste("\n", names(fargs), "\n:   ", unlist(map(fargs, "help")))
+      help$arguments = map(fargs, "help")
     if(is.null(help$usage))
       help$usage = paste(head(deparse(args(body.fun)), -1), collapse = "\n")
     structure(

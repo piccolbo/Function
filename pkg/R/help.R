@@ -43,7 +43,8 @@ view =
         subtitle("Usage"),
         paragraph(h$usage),
         subtitle("Arguments"),
-        paragraph(h$arguments),
+        paragraph(
+          paste0("\n", names(h$arguments), "\n:   ", unlist(h$arguments), collapse = "\n")),
         subtitle("Details"),
         paragraph(h$details),
         subtitle("See Also"),
