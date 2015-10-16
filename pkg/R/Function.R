@@ -97,3 +97,13 @@ F = Function =
       body = body,
       help = help,
       tests = tests)}
+
+is.Function = function(x) "Function" %in% class(x)
+
+as.Function = function(x) UseMethod("as.Function")
+as.Function.function =
+  function(x) {
+    body = eval(call(name = "~", body(x)))
+    environment(body) = environment(x)
+    Function(args = map(formals(x), Argument), body)}
+
