@@ -9,5 +9,5 @@ Description: A Function class that formalizes good sw engineering practices,
   associating functions, pre- and post-conditions, tests, documentation and
   arguments, all the while promoting reuse and consistency in function families
 License: GPL (== 2.0)
-Imports: purrr, pryr
+Imports: purrr, pryr, markdown
 LazyData: TRUE
