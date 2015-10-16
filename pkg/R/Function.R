@@ -20,13 +20,13 @@ nodefault = mandatory = quote(expr = )
 # reusable argument
 A = Argument =
   function(
-    default = ~mandatory(name), #default value
     priority = 0, #priority when deciding order
+    default = nodefault, #default value
     validate = function(x) TRUE, #validate argument
     process = identity,
     help = NULL) { #transform argument
     args = all.args(A,  match.call())
-    stopifnot(identical(default, ~mandatory(name)) || validate(default))
+    stopifnot(identical(default, nodefault) || validate(default))
     structure(
       args,
       class = "Argument")}
