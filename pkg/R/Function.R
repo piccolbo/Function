@@ -16,7 +16,6 @@ all.args =
 
 # a default value for a mandatory argument
 nodefault = mandatory = quote(expr = )
-dot.args = list(`...` = quote(expr = ))
 
 # reusable argument
 A = Argument =
@@ -38,6 +37,10 @@ as.Argument = function(x, ...) UseMethod("as.Argument")
 as.Argument.default =
   function(x, ...)
     do.call(Argument, as.list(x))
+
+.onLoad =
+  function(libname,  pkgename)
+    assign("dots..", A(help = "Additional arguments", default = nodefault), envir = environment(A))
 
 # reusable function defs
 F = Function =
