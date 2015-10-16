@@ -61,39 +61,40 @@ F = Function =
       fargs = head(fargs, -1)
       nargs = head(nargs, -1)}
     fargs = c(fargs, args)
-    pre =
+    names(fargs) = c(nargs, names(args))
+    names(fargs) = unlist(map_if(names(fargs), ~. == "dots..", ~{"..."}))
+    preprocess =
       function(){
         args = all.args(pre, match.call())
-        arge =
-          setNames(
-            lapply(
-              names(args),
-              function(n) {
-                if(n == "") n = "..."
-                stopifnot(fargs[[n]]$validate(args[[n]]))
-                fargs[[n]]$process(args[[n]])}),
-            nm = names(args))
         stopifnot(do.call(precondition, args))
-        args }
-    core = function(){}
-    body(core) = as.list(body)[[2]]
+        map2(
+          args,
+          map_if(names(args), ~.=="" ||!(. %in% names(fargs)), ~{"..."}),
+          function(val, nm) {
+            stopifnot(fargs[[nm]]$validate(val))
+            fargs[[nm]]$process(val)})}
+    body.fun = function(){}
+    body(body.fun) = as.list(body)[[2]]
+    environment(body.fun) = environment(body)
     retval = function() {
-      retval = do.call(core, do.call(pre, all.args(retval, match.call())))
+      retval = do.call(body.fun, do.call(preprocess, all.args(retval, match.call())))
       stopifnot(postcondition(retval))
       retval}
     vals = map(fargs, "default")
-    formals(pre) =
-      formals(core) =
+    formals(preprocess) =
+      formals(body.fun) =
       formals(retval) =
-        setNames(
-          object = vals ,
-          nm = map(fargs, "name"))
+      setNames(
+        object = vals ,
+        nm = names(fargs))
     if(is.null(help$args))
-      help$args = paste("\n", names(fargs), "\n:   ", unlist(map(fargs, bettR::help)))
+      help$args =
+      paste("\n", names(fargs), "\n:   ", unlist(map(fargs, "help")))
     if(is.null(help$usage))
-      help$usage = paste(head(deparse(args(core)), -1), collapse = "\n")
+      help$usage = paste(head(deparse(args(body.fun)), -1), collapse = "\n")
     structure(
       retval,
       class = "Function",
+      body = body,
       help = help,
       tests = tests)}
