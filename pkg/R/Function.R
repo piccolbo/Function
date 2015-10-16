@@ -20,8 +20,8 @@ nodefault = mandatory = quote(expr = )
 # reusable argument
 A = Argument =
   function(
-    priority, #priority when deciding order
     default = ~mandatory(name), #default value
+    priority = 0, #priority when deciding order
     validate = function(x) TRUE, #validate argument
     process = identity,
     help = NULL) { #transform argument
