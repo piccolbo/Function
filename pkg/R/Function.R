@@ -20,7 +20,6 @@ nodefault = mandatory = quote(expr = )
 # reusable argument
 A = Argument =
   function(
-    name, #name of the argument
     priority, #priority when deciding order
     default = ~mandatory(name), #default value
     validate = function(x) TRUE, #validate argument
@@ -54,10 +53,11 @@ F = Function =
     postcondition = function(x) TRUE,
     args = NULL) {
     fargs = list(...)
-    names(fargs) = map(fargs, "name")
+    nargs = names(named_dots(...))
     if(is.null(body)){
       body = tail(fargs, 1)[[1]]
       fargs = fargs[-length(fargs)]}
+      nargs = head(nargs, -1)}
     fargs = c(fargs, args)
     pre =
       function(){
