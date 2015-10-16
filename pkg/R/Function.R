@@ -65,7 +65,7 @@ F = Function =
     names(fargs) = unlist(map_if(names(fargs), ~. == "dots..", ~{"..."}))
     preprocess =
       function(){
-        args = all.args(pre, match.call())
+        args = all.args(preprocess, match.call())
         stopifnot(do.call(precondition, args))
         map2(
           args,
