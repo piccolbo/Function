@@ -31,6 +31,8 @@ A = Argument =
       args,
       class = "Argument")}
 
+is.Argument = function(x) "Argument" %in% class(x)
+
 as.Argument = function(x, ...) UseMethod("as.Argument")
 
 as.Argument.default =
