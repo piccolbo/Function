@@ -48,7 +48,7 @@ F = Function =
   function(
     ...,
     body = NULL,
-    export = TRUE,
+    export = FALSE,
     help = NULL,
     tests = list(),
     precondition = function(...) TRUE,
