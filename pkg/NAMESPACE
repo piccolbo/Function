@@ -1,3 +1,4 @@
 exportPattern("^[[:alpha:]]+")
 import(purrr)
+importFrom(pryr, named_dots)
 importFrom(markdown, renderMarkdown)
