@@ -95,6 +95,7 @@ F = Function =
       retval,
       class = "Function",
       body = body,
+      export = export,
       help = help,
       tests = tests)}
 
@@ -107,3 +108,27 @@ as.Function.function =
     environment(body) = environment(x)
     Function(args = map(formals(x), Argument), body)}
 
+export =
+  function(x) {
+    pf = parent.frame()
+    x.val = get(x, envir = pf)
+    attr(x.val, "export")  = TRUE
+    assign(x, x.val, pf)}
+
+exported  =
+  function(env)
+    keep(as.list(as.environment(env)), ~{isTRUE(attributes(.)$export)})
+
+load.exports =
+  function(){
+    pf = parent.frame()
+    name = capture.output(print(pf))
+    assign(
+      ".onAttach",
+      function(libname, pkgname) {
+        attach(exported(pf), name = name,  pos = 3L)},
+      envir = pf)
+    assign(
+      ".onDetach",
+      function(libpath) {message("detaching ", name); detach(name)},
+      envir = pf)}
