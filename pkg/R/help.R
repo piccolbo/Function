@@ -24,11 +24,6 @@ Help =
       all.args(Help, match.call()),
       class = "Help")
 
-
-print.Help =
-  function(x, ...)
-    lapply(x, print)
-
 title = function(x)  paste("#", x, "\n")
 subtitle = function(x)  paste("##", x, "\n")
 paragraph = function(x) paste(x, "\n")
