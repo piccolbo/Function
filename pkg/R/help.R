@@ -1,7 +1,7 @@
 help = function(x, ...) UseMethod("help")
 
 help.Function = function(x, ...)
-  attr(x, "help", exact = TRUE)
+  view.help(x)
 
 help.Argument = function(x, ...) x$help
 
