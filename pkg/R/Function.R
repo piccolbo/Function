@@ -87,7 +87,7 @@ F = Function =
       setNames(
         object = vals ,
         nm = names(fargs))
-    if(is.null(help$args))
+    if(is.null(help$arguments))
       help$arguments = map(fargs, "help")
     if(is.null(help$usage))
       help$usage = paste(head(deparse(args(body.fun)), -1), collapse = "\n")
