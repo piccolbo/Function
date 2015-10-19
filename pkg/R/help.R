@@ -15,6 +15,7 @@ Help =
     title,
     description,
     value,
+    usage = NULL,
     arguments = NULL,
     details = NULL,
     see.also = NULL,
