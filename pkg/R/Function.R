@@ -74,7 +74,7 @@ F = Function =
             stopifnot(fargs[[nm]]$validate(val))
             fargs[[nm]]$process(val)})}
     body.fun = function(){}
-    body(body.fun) = as.list(body)[[2]]
+    body(body.fun) = call("{", as.list(body)[[2]])
     environment(body.fun) = environment(body)
     retval = function() {
       retval = do.call(body.fun, do.call(preprocess, all.args(retval, match.call())))
