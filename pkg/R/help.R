@@ -7,8 +7,11 @@ help.Argument = function(x, ...) x$help
 
 help.default =
   function(x, ...) {
-    x = as.character(substitute(x))
-    utils::help(x, ...)}
+    if(is.null(attr(x, "help"))){
+      x = as.character(substitute(x))
+      utils::help(x, ...)}
+    else
+      view.help(x)}
 
 Help =
   function(
@@ -27,7 +30,12 @@ Help =
 title = function(x)  paste("#", x, "\n")
 subtitle = function(x)  paste("##", x, "\n")
 paragraph = function(x) paste(x, "\n")
-view =
+
+section =
+  function(x, heading, formatting = paragraph)
+    if(!is.null(x)) paste0(subtitle(heading), formatting(x))
+
+view.help =
   function(x) {
     h = attributes(x)$help
     view = getOption("viewer")
@@ -38,15 +46,15 @@ view =
         paragraph(h$description),
         subtitle("Usage"),
         paragraph(h$usage),
-        subtitle("Arguments"),
-        paragraph(
-          paste0("\n", names(h$arguments), "\n:   ", unlist(h$arguments), collapse = "\n")),
-        subtitle("Details"),
-        paragraph(h$details),
-        subtitle("See Also"),
-        paragraph(h$see.also),
-        subtitle("Examples"),
-        paragraph(h$examples))
+        section(
+          h$arguments,
+          "Arguments",
+          function(x)
+            paragraph(
+              paste0("\n", names(x), "\n:   ", unlist(x), collapse = "\n"))),
+        section(h$details,"Details"),
+        section(h$see.also, "See Also"),
+        section(h$examples, "Examples"))
     tmpin = tempfile(fileext = ".md")
     tmpout = tempfile(fileext = ".html")
     writeLines(text = markdown, con = file(tmpin))
