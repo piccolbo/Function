@@ -6,13 +6,13 @@
 #return all args to a function, evaluated, as a list
 all.args =
   function(fun, matched.call) {
-    args = formals(fun)
-    args = args[discard(names(args), ~.=="...")]
+    pf = parent.frame()
+    nargs = names(formals(fun))
+    nargs = discard(nargs, ~.=="...")
     actual.args = as.list(matched.call)[-1]
     nact = names(actual.args)
-    args[nact] = NULL
-    lapply(c(args, actual.args), eval, envir = parent.frame(2))}
-
+    c(mget(unique(c(nargs, nact)), pf),
+      if("..." %in% names(formals(fun))) eval(quote(list(...)), pf))}
 
 # a default value for a mandatory argument
 nodefault = mandatory = quote(expr = )
