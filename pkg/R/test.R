@@ -1,6 +1,6 @@
 test  = function(x, ...) UseMethod("test")
 
-test.Function =
+test.default =
   function(x, ...)
     map(attr(x, "tests", exact = TRUE), ~.())
 
