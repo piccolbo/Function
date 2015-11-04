@@ -1,4 +1,4 @@
-test  = function(x, ...) UseMethod("tests")
+test  = function(x, ...) UseMethod("test")
 
 test.Function =
   function(x, ...)
