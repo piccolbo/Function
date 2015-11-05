@@ -115,8 +115,12 @@ export =
     assign(x, x.val, pf)}
 
 exported  =
+  function(x)
+    isTRUE(attributes(x)$export)
+
+keep.exported  =
   function(env)
-    keep(as.list(as.environment(env)), ~{isTRUE(attributes(.)$export)})
+    keep(as.list(as.environment(env)), exported)
 
 load.exports =
   function(){
@@ -125,9 +129,10 @@ load.exports =
     assign(
       ".onAttach",
       function(libname, pkgname) {
-        attach(exported(pf), name = name,  pos = 3L)},
+        attach(keep.exported(pf), name = name,  pos = 3L)},
       envir = pf)
     assign(
       ".onDetach",
       function(libpath) {message("detaching ", name); detach(name)},
       envir = pf)}
+
