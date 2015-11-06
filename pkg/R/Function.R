@@ -109,10 +109,8 @@ as.Function.function =
 
 export =
   function(x) {
-    pf = parent.frame()
-    x.val = get(x, envir = pf)
-    attr(x.val, "export")  = TRUE
-    assign(x, x.val, pf)}
+    attr(x, "export")  = TRUE
+    x}
 
 exported  =
   function(x)
