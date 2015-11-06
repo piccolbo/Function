@@ -120,9 +120,8 @@ keep.exported  =
   function(env)
     keep(as.list(as.environment(env)), exported)
 
-load.exports =
-  function(){
-    pf = parent.frame()
+load.exported =
+  function(pf = parent.frame()){
     name = capture.output(print(pf))
     assign(
       ".onAttach",
