@@ -1,5 +1,10 @@
 test  = function(x, ...) UseMethod("test")
 
+set.tests =
+  function(x, tests) {
+    attr(x, "tests") = tests
+    x}
+
 test.default =
   function(x, ...)
     map(attr(x, "tests", exact = TRUE), ~.())

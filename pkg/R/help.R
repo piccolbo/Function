@@ -27,6 +27,14 @@ Help =
       all.args(Help, match.call()),
       class = "Help")
 
+set.help =
+  function(x, h) {
+    attr(x, "export")  = h
+    x}
+
+
+
+
 title = function(x)  paste("#", x, "\n")
 subtitle = function(x)  paste("##", x, "\n")
 paragraph = function(x) paste(x, "\n")
